@@ -10,7 +10,7 @@ st.header("Análisis EDA")
 
 #First we need to load our data
 
-df=pd.read_csv('./Data/job_descriptions.csv')
+df = pd.read_csv('../Data/job_descriptions.csv')
 st.dataframe(df.head(6))
 
 st.markdown('---')
@@ -19,10 +19,9 @@ st.markdown('---')
 st.subheader('Descrición de los datos')
 st.write(df.info())
 st.markdown('---')
-value_count=df['sex'].value_counts()
-st.dataframe(value_count)
 
 ## SIN TOCAR
+
 """
 st.subheader('Lets find the distribution between males and females	:man-girl:')
 value_count=df['sex'].value_counts()
