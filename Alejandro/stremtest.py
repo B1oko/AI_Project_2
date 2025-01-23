@@ -12,12 +12,20 @@ st.header("Análisis EDA")
 
 df = pd.read_csv('../Data/job_descriptions.csv')
 st.dataframe(df.head(6))
-
 st.markdown('---')
+# Arreglar los datos
+
+
 
 
 st.subheader('Descrición de los datos')
-st.write(df.info())
+st.write("Selecciona una columna para ver su descripción")
+feature = st.selectbox('Selecciona una columna', df.columns)
+
+if feature:
+	st.write(df[feature].describe())		
+
+
 st.markdown('---')
 
 ## SIN TOCAR
