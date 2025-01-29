@@ -13,7 +13,7 @@ st.header("EDA")
 data = pd.read_csv('../Data/Salary_Data.csv')
 data['Education Level'] = data['Education Level'].replace('phD', 'PhD')
 job_title_counts = data['Job Title'].value_counts()
-job_titles_to_keep = job_title_counts[job_title_counts >= 20].index
+job_titles_to_keep = job_title_counts[job_title_counts >= 60].index
 
 # Keep only the rows with job titles that appear at least 10 times
 data = data[data['Job Title'].isin(job_titles_to_keep)]
@@ -53,23 +53,32 @@ with st.container():
 		value_count=data[var].value_counts()
 		col1,col2=st.columns(2)
 	
-		with col1:
-			st.subheader('Pie Chart')
-			fig,ax=plt.subplots()
-			ax.pie(value_count,autopct='%0.2f%%',labels=value_count.index)
-			st.pyplot(fig)
+		
+		st.subheader('Pie Chart')
+		fig,ax=plt.subplots()
+		ax.pie(value_count,autopct='%0.2f%%',labels=value_count.index)
+		st.pyplot(fig)
 
-		with col2:
-			st.subheader('Bar Chart')
-			st.bar_chart(
-    		data,
-    		x=var,
-			y="Salary")
+		
+		st.subheader('Bar Chart')
+		value_count = data[var].value_counts()
+		colors = sns.color_palette('flare', len(value_count))
+		fig, ax = plt.subplots()
+		ax.bar(value_count.index, value_count.values, color=colors)
+		ax.set_ylabel('Count')
+		ax.set_xticklabels(value_count.index, rotation=70)
+		ax.set_xlabel(var)
+		st.pyplot(fig)
+
 	else:
-		st.bar_chart(
-    	data,
-    	x=var,
-		y="Salary")
+		value_count = data[var].value_counts()
+		colors = sns.color_palette('flare', len(value_count))
+		fig, ax = plt.subplots()
+		ax.bar(value_count.index, value_count.values, color=colors)
+		ax.set_xticklabels(value_count.index, rotation=90)
+		ax.set_xlabel(var)
+		ax.set_ylabel('Count')
+		st.pyplot(fig)
 
 
 st.markdown('---')
