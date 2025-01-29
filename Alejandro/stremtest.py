@@ -12,7 +12,11 @@ st.header("EDA")
 
 data = pd.read_csv('../Data/Salary_Data.csv')
 data['Education Level'] = data['Education Level'].replace('phD', 'PhD')
+job_title_counts = data['Job Title'].value_counts()
+job_titles_to_keep = job_title_counts[job_title_counts >= 20].index
 
+# Keep only the rows with job titles that appear at least 10 times
+data = data[data['Job Title'].isin(job_titles_to_keep)]
 #Create a funcion to randomly show us 3 rows of a dataframe
 def display_random(data):
 	sample=data.sample(6)
@@ -52,21 +56,20 @@ with st.container():
 		with col1:
 			st.subheader('Pie Chart')
 			fig,ax=plt.subplots()
-			ax.pie(value_count,autopct='%0.2f%%',labels=data[var].unique())
+			ax.pie(value_count,autopct='%0.2f%%',labels=value_count.index)
 			st.pyplot(fig)
 
 		with col2:
 			st.subheader('Bar Chart')
-			fig,ax=plt.subplots()
-			ax.bar(value_count.index,value_count)
-			st.pyplot(fig)
+			st.bar_chart(
+    		data,
+    		x=var,
+			y="Salary")
 	else:
-		fig,ax=plt.subplots()
-		ax.bar(data["Job Title"],bins=40,edgecolor='k')
-		ax.set_title('Barplot of Job Title')
-		ax.set_xlabel("Job Title")
-		ax.set_ylabel('Frequency')
-		st.pyplot(fig)
+		st.bar_chart(
+    	data,
+    	x=var,
+		y="Salary")
 
 
 st.markdown('---')
