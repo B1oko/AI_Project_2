@@ -13,10 +13,23 @@ st.header("EDA")
 data = pd.read_csv('../Data/Salary_Data.csv')
 data['Education Level'] = data['Education Level'].replace('phD', 'PhD')
 job_title_counts = data['Job Title'].value_counts()
-job_titles_to_keep = job_title_counts[job_title_counts >= 60].index
+data['Job Title'] = data['Job Title'].astype(str)
 
-# Keep only the rows with job titles that appear at least 10 times
+def categorize_job_title(title):
+    if title.startswith('Senior'):
+        return 'Senior'
+    elif title.startswith('Junior'):
+        return 'Junior'
+    else:
+        return 'Regular'
+
+data['Job Category'] = data['Job Title'].apply(categorize_job_title)
+data['Job Title'] = data['Job Title'].str.replace('Senior', '').str.replace('Junior', '').str.strip()
+print(data[['Job Title', 'Job Category']].head())
+
+job_titles_to_keep = job_title_counts[job_title_counts >= 40].index
 data = data[data['Job Title'].isin(job_titles_to_keep)]
+
 #Create a funcion to randomly show us 3 rows of a dataframe
 def display_random(data):
 	sample=data.sample(6)
@@ -33,11 +46,11 @@ if new_button:
 	st.dataframe(sample)
 
 
-categorical_columns = ['Gender', 'Education Level']
+categorical_columns = ['Gender', 'Education Level','Job Category']
 
 st.subheader('Choose a variable to plot')
 var=st.radio('Pick one',
-	('Salary','Age','Years of Experience', 'Gender', 'Education Level','Job Title'))
+	('Salary','Age','Years of Experience', 'Gender', 'Education Level','Job Category','Job Title'))
 num_var = ['Age', 'Years of Experience', 'Salary']
 
 with st.container():
