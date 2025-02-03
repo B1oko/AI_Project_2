@@ -1,12 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
 #lets create our first static visualizations using Matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def eda():
+def app():
 	st.title("Exploratory Data Analysis")
 	st.markdown("---")
 	#First we need to load our data
@@ -89,9 +88,3 @@ def eda():
 			ax.set_xlabel(var)
 			ax.set_ylabel('Count')
 			st.pyplot(fig)
-
-
-	st.markdown('---')
-
-	## SIN TOCAR
-
