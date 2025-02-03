@@ -10,7 +10,8 @@ def app():
 	st.markdown("---")
 	#First we need to load our data
 
-	data = pd.read_csv('../Data/Salary_Data.csv')
+	data = pd.read_csv('../Data/salary_data_pau.csv')
+	"""
 	data['Education Level'] = data['Education Level'].replace('phD', 'PhD')
 	job_title_counts = data['Job Title'].value_counts()
 	data['Job Title'] = data['Job Title'].astype(str)
@@ -29,6 +30,7 @@ def app():
 
 	job_titles_to_keep = job_title_counts[job_title_counts >= 40].index
 	data = data[data['Job Title'].isin(job_titles_to_keep)]
+	"""
 
 	#Create a funcion to randomly show us 3 rows of a dataframe
 	def display_random(data):
@@ -44,11 +46,11 @@ def app():
 		st.dataframe(sample)
 
 
-	categorical_columns = ['Gender', 'Education Level','Job Category']
+	categorical_columns = ['Gender', 'Education Level','Job Category',"Job Type"]
 
 	st.subheader('Choose a variable to plot')
 	var=st.radio('Pick one',
-		('Salary','Age','Years of Experience', 'Gender', 'Education Level','Job Category','Job Title'))
+		('Salary','Age','Years of Experience', 'Gender', 'Education Level','Job Category','Job Type'))
 	num_var = ['Age', 'Years of Experience', 'Salary']
 
 	with st.container():
@@ -79,7 +81,7 @@ def app():
 			ax.set_xlabel(var)
 			st.pyplot(fig)
 
-		else:
+		"""else:
 			value_count = data[var].value_counts()
 			colors = sns.color_palette('flare', len(value_count))
 			fig, ax = plt.subplots()
@@ -87,4 +89,4 @@ def app():
 			ax.set_xticklabels(value_count.index, rotation=90)
 			ax.set_xlabel(var)
 			ax.set_ylabel('Count')
-			st.pyplot(fig)
+			st.pyplot(fig)"""
