@@ -10,6 +10,7 @@ import torch.optim as optim
 from models.models import RegressionNN
 
 GENDER_ENCODING = {'Female': 0, 'Male': 1, 'Other': 2}
+
 EDUCATION_LEVEL_ENCODING = {
     "Bachelor's": 0,
     "Bachelor's Degree": 1,
@@ -18,6 +19,7 @@ EDUCATION_LEVEL_ENCODING = {
     "Master's Degree": 4,
     'PhD': 5
 }
+
 JOB_TITLE_ENCODING = {
     'Account Executive': 0,
     'Account Manager': 1,
@@ -149,6 +151,43 @@ JOB_TITLE_ENCODING = {
     'Web Designer': 127,
     'Web Developer': 128
 }
+
+JOB_BY_CLASS = {
+    "Ingeniería": [
+        "Back end Developer", "Front End Developer", "Front end Developer", "Full Stack Engineer",
+        "Software Developer", "Software Engineer", "Network Engineer", "Data Engineer"
+    ],
+    "Ventas": [
+        "Account Executive", "Account Manager", "Sales Associate", "Sales Director",
+        "Sales Executive", "Sales Manager", "Sales Representative"
+    ],
+    "Recursos Humanos": [
+        "HR Coordinator", "HR Generalist", "HR Manager", "HR Specialist",
+        "Human Resources Coordinator", "Human Resources Director", "Human Resources Manager",
+        "Human Resources Specialist", "Recruiter", "Technical Recruiter"
+    ],
+    "Marketing": [
+        "Advertising Coordinator", "Content Marketing Manager", "Copywriter",
+        "Digital Marketing Manager", "Digital Marketing Specialist", "Marketing Analyst",
+        "Marketing Coordinator", "Marketing Director", "Marketing Manager", "Marketing Specialist",
+        "Social Media Manager", "Social Media Specialist"
+    ],
+    "Operaciones": [
+        "Operations Analyst", "Operations Coordinator", "Operations Director",
+        "Operations Manager", "Supply Chain Analyst", "Supply Chain Manager"
+    ],
+    "Ciencia de Datos": [
+        "Data Analyst", "Data Scientist", "Business Intelligence Analyst", "Research Scientist"
+    ],
+    "Diseño": [
+        "Graphic Designer", "Product Designer", "UX Designer", "Web Designer"
+    ],
+    "Gestión": [
+        "CEO", "Director", "Director of Operations", "Director of Marketing", "Manager",
+        "Product Manager", "Project Manager", "Software Manager"
+    ]
+}
+
 SENIORITY_ENCODING = {
     'Analyst': 0,
     'Associate': 1,
@@ -177,12 +216,20 @@ def app():
     # Obtener los datos de entrada del usuario
     st.write("Ingrese los datos de entrada:")
 
-    age = st.number_input("Edad", min_value=0, max_value=100)
+    age =  st.slider('Edad', 18, 100, 18)
     gender = st.selectbox("Sexo", ["Male", "Female", "Other"])
     education_level = st.selectbox("Nivel de educación", EDUCATION_LEVEL_ENCODING)
-    job_title = st.selectbox("Nombre del trabajo", JOB_TITLE_ENCODING)
-    years_of_experience = st.number_input("Años de experiencia", min_value=0)
+    job_class = st.selectbox("Clase de trabajo:", list(JOB_BY_CLASS.keys()))
+
+    if job_class in JOB_BY_CLASS:
+        jobs_for_class = JOB_BY_CLASS[job_class]
+        job_title = st.selectbox("Nombre del trabajo:", jobs_for_class)
+    else:
+        st.warning("No hay trabajos disponibles para esta clase.")
     seniority = st.selectbox("Tiempo de experiencia", SENIORITY_ENCODING)
+
+    years_of_experience = st.number_input("Años de experiencia", min_value=0)
+
 
     # Botones para hacer la predicción
     if st.button("Prediccion"):
