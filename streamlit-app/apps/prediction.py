@@ -203,9 +203,14 @@ SENIORITY_ENCODING = {
     'Specialist': 11
 }
 
-model = RegressionNN()
-model.load_state_dict(torch.load('models/regression_nn.pth', weights_only=True))
-model.eval()
+@st.cache_resource
+def load_model():
+    model = RegressionNN()
+    model.load_state_dict(torch.load('models/regression_nn.pth', weights_only=True))
+    model.eval()
+    return model
+
+model = load_model()
 
 
 def app():
