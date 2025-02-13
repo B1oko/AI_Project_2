@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from sklearn import datasets
+import pickle
 
 import torch
 import torch.nn as nn
@@ -9,16 +10,7 @@ import torch.optim as optim
 
 from models.models import RegressionNN
 
-GENDER_ENCODING = {'Female': 0, 'Male': 1, 'Other': 2}
-
-EDUCATION_LEVEL_ENCODING = {
-    "Bachelor's": 0,
-    "Bachelor's Degree": 1,
-    'High School': 2,
-    "Master's": 3,
-    "Master's Degree": 4,
-    'PhD': 5
-}
+from utils import Preprocessor
 
 JOB_TITLE_ENCODING = {
     'Account Executive': 0,
@@ -203,7 +195,7 @@ SENIORITY_ENCODING = {
     'Specialist': 11
 }
 
-@st.cache_resource
+'''@st.cache_resource
 def load_model():
     model = RegressionNN()
     model.load_state_dict(torch.load('models/regression_nn.pth', weights_only=True))
@@ -211,7 +203,7 @@ def load_model():
     return model
 
 model = load_model()
-
+'''
 
 def app():
     st.title('Predicciones')
@@ -235,7 +227,42 @@ def app():
 
     years_of_experience = st.number_input("Años de experiencia", min_value=0)
 
+    input_data = np.array([age, GENDER_ENCODING[gender], EDUCATION_LEVEL_ENCODING[education_level], JOB_TITLE_ENCODING[job_title], years_of_experience, SENIORITY_ENCODING[seniority]])
+    input_preprocessed = Preprocessor.preprocesar_inferencia(input_data)
 
+    # Botones para elegir el modelo
+    st.write("Elige el modelo que quieres ejecutar:")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        rf_button = st.button("Random Forest")
+    with col2:
+        nn_button = st.button("Neural Network")
+
+    # Ejecutar el modelo según el botón pulsado
+    if rf_button:
+        st.write("Ejecutando modelo de Random Forest...")
+        
+        # Cargar modelo Random Forest (ejemplo con un modelo preentrenado)
+        with open("regression_rf.pkl", "rb") as file:
+            rf_model = pickle.load(file)
+        
+        y_pred_rf = rf_model.predict(input_preprocessed)
+        st.write("Predicciones del modelo Random Forest:", y_pred_rf)
+    '''
+    elif nn_button:
+        st.write("Ejecutando modelo de Neural Network...")
+        
+        # Cargar modelo Neural Network (ejemplo con un modelo preentrenado)
+        with open("best_nn_model.pkl", "rb") as file:
+            nn_model = pickle.load(file)
+        
+        y_pred_nn = nn_model.predict(input_preprocessed)
+        st.write("Predicciones del modelo Neural Network:", y_pred_nn)
+
+        
+    '''
+    '''
     # Botones para hacer la predicción
     if st.button("Prediccion"):
         input_data = np.array([age, GENDER_ENCODING[gender], EDUCATION_LEVEL_ENCODING[education_level], JOB_TITLE_ENCODING[job_title], years_of_experience, SENIORITY_ENCODING[seniority]])
@@ -249,3 +276,5 @@ def app():
 
         # Mostrar la predicción
         st.write(f"El salario predicho es: {output}")
+
+        '''
