@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 from sklearn import datasets
 import pickle
+import matplotlib.pyplot as plt
+
 
 import torch
 import torch.nn as nn
@@ -54,7 +56,7 @@ def app():
             return
 
         # Preprocessing
-        data_iference = preprocessor.transform([age, gender, education_level, job_title, years_of_experience, job_category, job_type])
+        data_iference = preprocessor.transform([[age+i, gender, education_level, job_title, years_of_experience+i, job_category, job_type] for i in range(20)])
 
         st.write("Ejecutando modelo de Random Forest...")
         
@@ -63,7 +65,15 @@ def app():
             rf_model = pickle.load(file)
         
         y_pred_rf = rf_model.predict(data_iference)
-        st.write("Predicciones del modelo Random Forest:", y_pred_rf)
+        st.write("Predicciones del modelo Random Forest:", y_pred_rf[0])
+
+        # plot y_pred
+        fig, ax = plt.subplots()
+        ax.plot(y_pred_rf, label='Inferencia')
+        ax.set_xlabel('Tiempo')
+        ax.set_ylabel('Salario')
+        ax.set_title('Distribución del salario predicho')
+        st.pyplot(fig)
     
 
     if nn_button:
@@ -73,7 +83,7 @@ def app():
             return
 
         # Preprocessing
-        data_iference = preprocessor.transform([age, gender, education_level, job_title, years_of_experience, job_category, job_type])
+        data_iference = preprocessor.transform([[age+i, gender, education_level, job_title, years_of_experience+i, job_category, job_type] for i in range(20)])
 
         st.write("Ejecutando modelo de Neural Network...")
         
@@ -84,6 +94,13 @@ def app():
         
         # Realizar la predicción del salario
         with torch.no_grad():
-            y_pred_nn = model(torch.tensor(data_iference, dtype=torch.float32).unsqueeze(0))
+            y_pred_nn = model(torch.tensor(data_iference, dtype=torch.float32))
 
-        st.write("Predicciones del modelo Neural Network:", y_pred_nn)
+        st.write("Predicciones del modelo Neural Network:", y_pred_nn[0, 0].item())
+
+        fig, ax = plt.subplots()
+        ax.plot(y_pred_nn, label='Inferencia')
+        ax.set_xlabel('Tiempo')
+        ax.set_ylabel('Salario')
+        ax.set_title('Distribución del salario predicho')
+        st.pyplot(fig)

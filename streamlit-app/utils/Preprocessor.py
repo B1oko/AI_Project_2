@@ -8,7 +8,7 @@ class Preprocessor():
             self.preprocessor = pickle.load(f)
 
     def transform(self, data: list):
-        inferencia_df = pd.DataFrame([data], columns=["Age", "Gender", "Education Level", "Job Title", "Years of Experience", "Job Category", "Job Type"])
+        inferencia_df = pd.DataFrame(data, columns=["Age", "Gender", "Education Level", "Job Title", "Years of Experience", "Job Category", "Job Type"])
         return self.preprocessor.transform(inferencia_df)
 
 
