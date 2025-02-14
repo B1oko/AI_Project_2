@@ -8,24 +8,13 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+from utils.Preprocessor import Preprocessor
 from models.models import RegressionNN
-
-from utils import Preprocessor
 from utils.data_options import OPTIONS_GENDER, OPTIONS_EDUCATION_LEVEL, OPTIONS_JOB_CATEGORY, MAP_JOB_TYPE_JOB_TITLE
 
 
-'''@st.cache_resource
-def load_model():
-    model = RegressionNN()
-    model.load_state_dict(torch.load('models/regression_nn.pth', weights_only=True))
-    model.eval()
-    return model
-
-model = load_model()
-'''
-
-with open("models/preprocessing_pipeline.pkl", "rb") as f:
-    preprocessor = pickle.load(f)
+# Load the preprocessor
+preprocessor = Preprocessor()
 
 def app():
     st.title('Predicciones')
@@ -65,9 +54,7 @@ def app():
             return
 
         # Preprocessing
-        X_inference = [age, gender, education_level, job_title, years_of_experience, job_category, job_type]
-        df_inference = pd.DataFrame([X_inference], columns=["Age", "Gender", "Education Level", "Job Title", "Years of Experience", "Job Category", "Job Type"])
-        X_inference_transformed = preprocessor.transform(df_inference)
+        data_iference = preprocessor.transform([age, gender, education_level, job_title, years_of_experience, job_category, job_type])
 
         st.write("Ejecutando modelo de Random Forest...")
         
@@ -75,7 +62,7 @@ def app():
         with open("models/regression_rf.pkl", "rb") as file:
             rf_model = pickle.load(file)
         
-        y_pred_rf = rf_model.predict(X_inference_transformed)
+        y_pred_rf = rf_model.predict(data_iference)
         st.write("Predicciones del modelo Random Forest:", y_pred_rf)
     
 
@@ -86,9 +73,7 @@ def app():
             return
 
         # Preprocessing
-        X_inference = [age, gender, education_level, job_title, years_of_experience, job_category, job_type]
-        df_inference = pd.DataFrame([X_inference], columns=["Age", "Gender", "Education Level", "Job Title", "Years of Experience", "Job Category", "Job Type"])
-        X_inference_transformed = preprocessor.transform(df_inference)
+        data_iference = preprocessor.transform([age, gender, education_level, job_title, years_of_experience, job_category, job_type])
 
         st.write("Ejecutando modelo de Neural Network...")
         
@@ -99,6 +84,6 @@ def app():
         
         # Realizar la predicción del salario
         with torch.no_grad():
-            y_pred_nn = model(torch.tensor(X_inference_transformed, dtype=torch.float32).unsqueeze(0))
+            y_pred_nn = model(torch.tensor(data_iference, dtype=torch.float32).unsqueeze(0))
 
         st.write("Predicciones del modelo Neural Network:", y_pred_nn)
