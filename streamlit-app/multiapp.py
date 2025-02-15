@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 class MultiApp:
     """Framework for combining multiple Streamlit applications."""
@@ -11,10 +12,14 @@ class MultiApp:
         self.apps.append({"title": title, "function": func})
 
     def run(self):
+        img = Image.open("./img/logo.png")
+
+        # Mostrar la imagen en la parte superior de la barra lateral
+        st.sidebar.image(img)
 
         # Aplicar el menú mejorado en la barra lateral
         app = st.sidebar.radio(
-            'Navegación',
+            '',
             self.apps,
             format_func=lambda app: app['title']
         )
