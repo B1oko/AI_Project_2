@@ -12,12 +12,19 @@ def main():
 
     app = MultiApp()
 
-    st.title("Salary Prediction App")
-
     app.add_app("Home", home.app)
     app.add_app("EDA", eda.app)
     app.add_app("Prediction", prediction.app)
     app.run()
+
+    st.sidebar.markdown("""
+        <div class="sidebar-footer">
+            <p class="sidebar-footer-subheading">Desarrollado por:</p>
+            <p><a href="https://github.com/B1oko" target="_blank">Pablo Esteban</a></p>
+            <p><a href="https://github.com/paujorques02" target="_blank">Pau Jorques</a></p>
+            <p><a href="https://github.com/VeintimillAlejandro" target="_blank">Alejandro Veintimilla</a></p>
+        </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
