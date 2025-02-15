@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 
 def app():
+    st.title("Salary Prediction App")
     st.write("Bienvenido al Salary Prediction App!")
     st.write(
         "Descubre cómo tu potencial salarial puede superar todas las expectativas con nuestra innovadora aplicación de predicción de sueldos. "

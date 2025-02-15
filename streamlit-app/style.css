@@ -1,9 +1,18 @@
+/* Fondo del contenedor principal de la app con un degradado */
+.stApp {
+    /* Degradado para navegadores WebKit */
+    background: -webkit-linear-gradient(90deg, #0b0d0f, #1a1d21, #292e36);
+    /* Degradado estándar */
+    background: linear-gradient(90deg, #0b0d0f, #1a1d21, #292e36);
+}
 
-
-/* convert radio to list of buttons */
+/* Convertir el grupo de botones de radio en una lista de botones */
+/* Se muestra el grupo de botones en línea */
 div[role="radiogroup"] {
     display: flex;
 }
+
+/* Estilos para cada botón (div) asociado a un input de tipo radio */
 input[type="radio"] + div {
     background: #424949 !important;
     color: #FFF;
@@ -11,19 +20,158 @@ input[type="radio"] + div {
     padding: 8px 18px !important;
     width: 280px !important;
 }
-input[type="radio"][tabindex="0"] + div {
-    background: #424949 !important;
-    color: #00ffa6 !important;
-}
-input[type="radio"][tabindex="0"] + div p {
-    color: #00ffa6 !important;
-}
+
+/* Ocultar el primer div (generalmente el input real) dentro de cada etiqueta del radiogroup */
 div[role="radiogroup"] label > div:first-child {
     display: none !important;
 }
+
+/* Quitar el margen derecho en cada etiqueta del radiogroup */
 div[role="radiogroup"] label {
     margin-right: 0px !important;
 }
+
+/* Espaciado entre botones en el radiogroup */
 div[role="radiogroup"] {
     gap: 12px;
+}
+
+/* Efecto hover para los botones (cambia fondo y color de texto) */
+input[type="radio"] + div:hover {
+    background: #fff !important;
+    color: #00ffa6 !important;
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer !important;
+}
+
+/* Agregar un borde verde al botón seleccionado (cuando el radio está marcado) */
+input[type="radio"]:checked + div {
+    border: 2px solid #00ffa6 !important;
+}
+
+/* ============================= */
+/* Estilos para los botones de Streamlit */
+/* ============================= */
+
+/* Estilo base para los botones de Streamlit */
+div.stButton > button {
+    background-color: #424949 !important;
+    color: #FFF !important;
+    border-radius: 5px !important;
+    padding: 8px 18px !important;
+    width: 280px !important;
+    border: none !important;
+}
+
+/* Efecto hover: cambia el fondo a blanco y el texto a verde */
+div.stButton > button:hover {
+    background-color: #fff !important;
+    color: #00ffa6 !important;
+    transition: background 0.3s ease, color 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+/* Efecto focus: agrega un borde verde y quita el contorno predeterminado */
+div.stButton > button:focus {
+    border: 2px solid #00ffa6 !important;
+    outline: none !important;
+}
+
+/* ============================= */
+/* Estilos para el selectbox de Streamlit */
+/* ============================= */
+
+/* Quita fondo, bordes y sombra del contenedor externo del selectbox */
+div[data-baseweb="select"] {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Estilo del control principal del selectbox (el recuadro gris) */
+div[data-baseweb="select"] .css-1dimb5e-control {
+    background-color: #424949 !important;  /* Fondo del select */
+    border: 2px solid #00ffa6 !important;      /* Borde verde */
+    color: #FFF !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    min-height: 40px; /* Altura mínima del control */
+    padding: 0 12px !important;
+}
+
+/* Estilo del texto seleccionado en el selectbox */
+div[data-baseweb="select"] .css-1uccc91-singleValue {
+    color: #FFF !important;
+}
+
+/* Efecto hover sobre el control principal del selectbox */
+div[data-baseweb="select"] .css-1dimb5e-control:hover {
+    background-color: #505050 !important;
+}
+
+/* ============================= */
+/* Estilos para la lista de opciones del selectbox */
+/* ============================= */
+
+/* Estilo de la lista desplegable del selectbox */
+ul[data-testid="stSelectbox-options"] {
+    background-color: #424949 !important;
+    color: #FFF !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Estilo de cada opción en la lista desplegable */
+ul[data-testid="stSelectbox-options"] li {
+    background-color: #424949 !important;
+    color: #FFF !important;
+    margin: 0 !important;
+}
+
+/* Efecto hover para cada opción: fondo verde y texto negro */
+ul[data-testid="stSelectbox-options"] li:hover {
+    background-color: #00ffa6 !important;
+    color: #000 !important;
+    transition: background 0.2s ease-in-out;
+}
+
+/* ============================= */
+/*           SIDEBAR             */
+/* ============================= */
+
+/* Contenedor que envuelve la sección de créditos */
+.sidebar-footer {
+    margin-top: 2rem;             /* Separación desde los botones */
+    padding: 1rem;                /* Relleno interno */
+    border-radius: 8px;           /* Bordes redondeados */
+    text-align: center;           /* Centra el contenido si lo deseas */
+}
+
+/* Título "Desarrollado por:" */
+.sidebar-footer-subheading {
+    margin: 0 0 0.5rem 0;         /* Ajusta márgenes */
+    font-size: 1rem;              /* Tamaño de fuente */
+    font-weight: bold;            /* Negrita */
+    color: var(--accent-color);   /* Verde */
+}
+
+/* Estilo de cada enlace de desarrollador */
+.sidebar-footer a {
+    display: inline-block;              /* Para que respete padding/margin */
+    color: var(--text-color) !important; 
+    text-decoration: none !important;   
+    border: 1px solid var(--accent-color) !important;
+    background-color: var(--button-bg-color) !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    margin: 4px 0;                      /* Espacio vertical entre enlaces */
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover: fondo blanco, texto verde */
+.sidebar-footer a:hover {
+    background-color: #fff !important;
+    color: #00ffa6 !important;
 }
