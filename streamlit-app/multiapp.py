@@ -12,7 +12,7 @@ class MultiApp:
         self.apps.append({"title": title, "function": func})
 
     def run(self):
-        img = Image.open("./img/logo.png")
+        img = Image.open("./img/logo3.png")
 
         # Mostrar la imagen en la parte superior de la barra lateral
         st.sidebar.image(img)

@@ -141,12 +141,18 @@ ul[data-testid="stSelectbox-options"] li:hover {
 /*           SIDEBAR             */
 /* ============================= */
 
+.stSidebar {
+    background: -webkit-linear-gradient(90deg, #000000,#121212,#000000);
+    background: linear-gradient(90deg, #000000,#121212,#000000);
+}
+
 /* Contenedor que envuelve la sección de créditos */
 .sidebar-footer {
     margin-top: 2rem;             /* Separación desde los botones */
     padding: 1rem;                /* Relleno interno */
     border-radius: 8px;           /* Bordes redondeados */
     text-align: center;           /* Centra el contenido si lo deseas */
+
 }
 
 /* Título "Desarrollado por:" */
