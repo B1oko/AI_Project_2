@@ -12,27 +12,27 @@ MAP_JOB_TYPE_JOB_TITLE = {
     'Data & Analytics': [
         'Data Analyst', 'Marketing Analyst', 'Financial Analyst',
         'Business Analyst', 'Data Scientist', 'Research Scientist',
-        'of Data Science'
+        'Data Science'
     ],
     'Sales & Marketing': [
         'Sales Associate', 'Marketing Coordinator', 'Sales',
-        'Sales Executive', 'of Marketing', 'Sales Representative',
-        'Marketing', 'Digital Marketing Specialist'
+        'Sales Executive', 'Marketing', 'Sales Representative',
+        'Digital Marketing Specialist'
     ],
     'Management': [
         'Product Manager', 'Sales Manager', 'Project Manager',
         'Operations Manager', 'Marketing Manager', 'Financial Manager',
         'Social Media Manager', 'Digital Marketing Manager', 'Content Marketing Manager',
         'Product Marketing Manager', 'Human Resources Manager'
-    ], 
-    'Design & Creative': [
-        'Product Designer', 'Graphic Designer'
     ],
+    'Design & Creative': ['Product Designer', 'Graphic Designer'],
     'Human Resources': [
-        'HR Generalist', 'HR Coordinator', 'Human Resources Coordinator', 'of HR'],
-    'Operations & Logistics': ['of Operations'],
+        'HR Generalist', 'HR Coordinator', 'Human Resources Coordinator', 'HR'
+    ],
+    'Operations & Logistics': ['Operations'],
     'Science & Research': ['Research'],
-    'Other': ['Receptionist']}
+    'Other': ['Receptionist']
+}
 
 # # CODIGO PARA GENERAR MAP 
 # agrupaciones = {}

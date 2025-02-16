@@ -18,6 +18,22 @@ from utils.data_options import OPTIONS_GENDER, OPTIONS_EDUCATION_LEVEL, OPTIONS_
 # Load the preprocessor
 preprocessor = Preprocessor()
 
+def plot_next_year_salary(pred, age):
+    fig, ax = plt.subplots()
+    fig.patch.set_alpha(0)
+    ax.set_facecolor('none')
+    x_values = [age + i for i in range(len(pred))]
+    ax.plot(x_values, pred, color='#00ffa6', label='Inferencia', linestyle='-', marker='o')
+    ax.set_xlabel('Edad')
+    ax.set_ylabel('Salario')
+    ax.set_title('Salario en los próximos años.')
+    # Cambiar el color de los textos a blanco
+    ax.tick_params(colors='white')  # Color de los ticks (números de los ejes)
+    ax.xaxis.label.set_color('white')  # Color del texto del eje X
+    ax.yaxis.label.set_color('white')  # Color del texto del eje Y
+    ax.title.set_color('white')  # Color del título
+    st.pyplot(fig, transparent=True)
+
 def app():
     st.title('Predicción de Salarios')
 
@@ -72,10 +88,13 @@ def app():
         rf_model = cargar_modelo()
         
         y_pred_rf = rf_model.predict(data_iference)
+        
+        st.markdown("---")
+
         st.markdown(
             f"""
+            <span style="font-size:16px; color:#ffffff; margin-right:10px;">Predicción:</span>
             <div style="display: flex; align-items: center;">
-                <span style="font-size:16px; color:#ffffff; margin-right:10px;">Predicción del modelo con Random Forest:</span>
                 <span style="
                     font-size:20px; 
                     color:#00ffa6; 
@@ -91,19 +110,7 @@ def app():
         )
 
         # plot y_pred
-        fig, ax = plt.subplots()
-        fig.patch.set_alpha(0)
-        ax.set_facecolor('none')
-        ax.plot(y_pred_rf, color='#00ffa6',label='Inferencia')
-        ax.set_xlabel('Tiempo')
-        ax.set_ylabel('Salario')
-        ax.set_title('Salario en los proximos años.')
-        # Cambiar el color de los textos a blanco
-        ax.tick_params(colors='white')  # Color de los ticks (números de los ejes)
-        ax.xaxis.label.set_color('white')  # Color del texto del eje X
-        ax.yaxis.label.set_color('white')  # Color del texto del eje Y
-        ax.title.set_color('white')  # Color del título
-        st.pyplot(fig, transparent=True)
+        plot_next_year_salary(y_pred_rf, age)
     
 
     if nn_button:
@@ -121,10 +128,12 @@ def app():
         with torch.no_grad():
             y_pred_nn = model(torch.tensor(data_iference, dtype=torch.float32))
 
+        st.markdown("---")
+
         st.markdown(
             f"""
+            <span style="font-size:16px; color:#ffffff; margin-right:10px;">Predicción:</span>
             <div style="display: flex; align-items: center;">
-                <span style="font-size:16px; color:#ffffff; margin-right:10px;">Predicción del modelo con Neural Network:</span>
                 <span style="
                     font-size:20px; 
                     color:#00ffa6; 
@@ -135,20 +144,11 @@ def app():
                     {y_pred_nn[0, 0].item():.2f} $
                 </span>
             </div>
+            </br>
+            <br>
             """,
             unsafe_allow_html=True
         )
 
-        fig, ax = plt.subplots()
-        fig.patch.set_alpha(0)
-        ax.set_facecolor('none')
-        ax.plot(y_pred_nn, color='#00ffa6',label='Inferencia')
-        ax.set_xlabel('Tiempo')
-        ax.set_ylabel('Salario')
-        ax.set_title('Salario en los proximos años.')
-        # Cambiar el color de los textos a blanco
-        ax.tick_params(colors='white')  # Color de los ticks (números de los ejes)
-        ax.xaxis.label.set_color('white')  # Color del texto del eje X
-        ax.yaxis.label.set_color('white')  # Color del texto del eje Y
-        ax.title.set_color('white')  # Color del título
-        st.pyplot(fig, transparent=True)
+        # plot y_pred
+        plot_next_year_salary(y_pred_nn, age)
