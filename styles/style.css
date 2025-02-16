@@ -18,6 +18,15 @@ input[type="radio"] + div {
     color: #FFF;
     border-radius: 5px !important;
     padding: 8px 18px !important;
+    width: 180px !important;
+}
+
+/* Estilos para cada botón (div) asociado a un input de tipo radio DENTRO DE LA SIDEBAR*/
+.stSidebar input[type="radio"] + div {
+    background: #424949 !important;
+    color: #FFF;
+    border-radius: 5px !important;
+    padding: 8px 18px !important;
     width: 280px !important;
 }
 

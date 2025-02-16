@@ -14,5 +14,7 @@ def app():
         "- Negociar con mayor seguridad en procesos de selección, respaldado por predicciones sólidas basadas en datos reales.\n\n"
         "Haz que cada paso en tu desarrollo profesional cuente. ¡Únete a nuestro futuro compartido, impulsado por la inteligencia artificial, y conoce hoy mismo el salario que podrías estar ganando mañana!"
     )
-    img = Image.open("./img/image.png")
-    st.image(img)
+
+    st.write("<br><br><br>", unsafe_allow_html=True)
+
+    st.image("img/nube.gif", use_container_width=True)
