@@ -42,10 +42,17 @@ def app():
 		if var in num_var:
 			st.subheader(f'Histogram of {var}')
 			fig,ax=plt.subplots()
-			ax.hist(data[var],bins=40,edgecolor='k')
+			ax.hist(data[var], bins=40, edgecolor='k', color='#00ffa6')
 			ax.set_xlabel(var)
 			ax.set_ylabel('Frequency')
-			st.pyplot(fig)
+
+			# Colors
+			ax.tick_params(colors='white')
+			ax.xaxis.label.set_color('white')
+			ax.yaxis.label.set_color('white')
+			ax.title.set_color('white')
+			
+			st.pyplot(fig, transparent=True)
 
 		elif var in categorical_columns:
 			value_count=data[var].value_counts()
@@ -54,17 +61,18 @@ def app():
 			st.subheader('Pie Chart')
 			fig,ax=plt.subplots()
 			ax.pie(value_count,autopct='%0.2f%%',labels=value_count.index)
-			st.pyplot(fig)
+			st.pyplot(fig, transparent=True)
 
 			st.subheader('Bar Chart')
 			value_count = data[var].value_counts()
 			colors = sns.color_palette('flare', len(value_count))
 			fig, ax = plt.subplots()
+
 			ax.bar(value_count.index, value_count.values, color=colors)
 			ax.set_ylabel('Count')
 			ax.set_xticklabels(value_count.index, rotation=70)
 			ax.set_xlabel(var)
-			st.pyplot(fig)
+			st.pyplot(fig, transparent=True)
 
 		else:
 			value_count = data[var].value_counts()
@@ -74,7 +82,7 @@ def app():
 			ax.set_xticklabels(value_count.index, rotation=90)
 			ax.set_xlabel(var)
 			ax.set_ylabel('Count')
-			st.pyplot(fig)
+			st.pyplot(fig, transparent=True)
 
 		if var == 'Salary':
 			st.write(
