@@ -15,7 +15,7 @@ def load_data():
 @st.cache_data
 def preprocess_data(data):
     job_title_counts = data['Job Title'].value_counts()
-    
+
     def categorize_job_title(title):
         if title.startswith('Senior'):
             return 'Senior'
@@ -23,13 +23,13 @@ def preprocess_data(data):
             return 'Junior'
         else:
             return 'Regular'
-    
+
     data['Job Category'] = data['Job Title'].apply(categorize_job_title)
     data['Job Title'] = data['Job Title'].str.replace('Senior', '').str.replace('Junior', '').str.strip()
-    
+
     job_titles_to_keep = job_title_counts[job_title_counts >= 40].index
     data = data[data['Job Title'].isin(job_titles_to_keep)]
-    
+
     return data
 
 def app():
@@ -39,21 +39,21 @@ def app():
 
 	data = load_data()
 	data = preprocess_data(data)
-	
+
 	def display_random(data):
 		sample = data.sample(6)
 		return sample
-          
+
 	st.subheader('Displaying 6 rows')
 	st.caption('Click the button to display random rows')
 	new_button = st.button('Display 6 random rows')
 	if new_button:
 		sample = display_random(data)
 		st.dataframe(sample)
-		
+
 	categorical_columns = ['Gender', 'Education Level', 'Job Category']
 	num_var = ['Age', 'Years of Experience', 'Salary']
-	
+
 	st.subheader('Choose a variable to plot')
 	var = st.radio('Pick one', ('Salary', 'Age', 'Years of Experience', 'Gender', 'Education Level', 'Job Category', 'Job Title'))
 
