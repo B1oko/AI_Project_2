@@ -77,10 +77,35 @@ def app():
 			st.pyplot(fig)
 
 		if var == 'Salary':
-			st.write(""
-        "El salario representa la cantidad de dinero (En este caso en dolares) que un trabajador recibe a cambio de su trabajo."
-		"En este estudio es nuestra variable objetivo, es decir, la variable que queremos predecir mediante el resto."
-    )
+			st.write(
+        "El salario representa la cantidad de dinero (En este caso en dólares) que un trabajador recibe a cambio de su trabajo."
+		" En este estudio es nuestra variable objetivo, es decir, la variable que queremos predecir mediante el resto."
+	)
+		elif var == 'Age':
+			st.write(
+        "La edad está obviamente medida en años y es una variable continua."
+		" Es una variable importante para el salario, puesto que la gente suele cobrar más cuanto más mayor y más experiencia tienen."
+	)
+		elif var == 'Years of Experience':
+			st.write(
+        "También obviamente medida en años y continua. Es una variable muy estrechamente relacionada con la primera por los mismos motivos."
+	)
+		elif var == 'Gender':
+			st.write(
+        "El género es una variable categórica que indica si el trabajador es hombre, mujer u otro. Es una variable importante para el salario, puesto que existe una brecha salarial entre hombres y mujeres."
+	)
+		elif var == 'Education Level':
+			st.write(
+        "El nivel de educación es una variable categórica que indica el nivel de estudios del trabajador. Es una variable importante para el salario, puesto que a mayor nivel de estudios, mayor salario o por lo menos mejor el puesto o empleo al que se puede acceder."
+	)
+		elif var == 'Job Category':
+			st.write(
+        "En este caso esta variable específica el rango que ocupa el empleado dentro de su puesto. Junior si en nuevo en el puesto y tiene poca experiencia. Regular si ya ha pasado el periodo de junior y, por lo tanto, suele tener mayores responsabilidades y salario. Senior para aquellos empleados con mucha experiencia en su empleo y que suelen requerir una mejora salarial. Y por último, director como persona encargada de gestionar a las tareas y obligaciones de los empleados de su departamento de trabajo.  Cuantas mayores son las responsabilidades y la experiencia requerida para alcanzar una posición mayor suele ser el salario asociado. "
+	)
+		elif var == 'Job Title':
+			st.write(
+        "Por último el nombre del empleo, esta variable sirve para especificar la división del negocio a la que se dedica el empleado. No todos los trabajos son iguales, algunos requieren mayores estudios o experiencia para llevarse a cabo y la reducción en posibles empleados cualificados conlleva un aumento salarial comparado con otros empleos.  En este caso para que la gráfica sea legible se ha optado por solo graficar los 40 empleos más comunes en la base de datos. "
+	)
 
 if __name__ == "__main__":
 	app()
