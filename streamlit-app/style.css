@@ -151,8 +151,7 @@ ul[data-testid="stSelectbox-options"] li:hover {
     margin-top: 2rem;             /* Separación desde los botones */
     padding: 1rem;                /* Relleno interno */
     border-radius: 8px;           /* Bordes redondeados */
-    text-align: center;           /* Centra el contenido si lo deseas */
-
+    text-align: left;           /* Centra el contenido si lo deseas */
 }
 
 /* Título "Desarrollado por:" */
@@ -172,7 +171,7 @@ ul[data-testid="stSelectbox-options"] li:hover {
     background-color: var(--button-bg-color) !important;
     padding: 4px 8px !important;
     border-radius: 4px !important;
-    margin: 4px 0;                      /* Espacio vertical entre enlaces */
+    /* margin: 4px 0;                      Espacio vertical entre enlaces */
     transition: background 0.3s ease, color 0.3s ease;
 }
 

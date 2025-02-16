@@ -105,6 +105,7 @@ def app():
                     {y_pred_rf[0]:.2f} $
                 </span>
             </div>
+            <br>
             """,
             unsafe_allow_html=True
         )
@@ -144,7 +145,6 @@ def app():
                     {y_pred_nn[0, 0].item():.2f} $
                 </span>
             </div>
-            </br>
             <br>
             """,
             unsafe_allow_html=True
