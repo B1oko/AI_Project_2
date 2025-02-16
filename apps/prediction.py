@@ -18,13 +18,13 @@ from utils.data_options import OPTIONS_GENDER, OPTIONS_EDUCATION_LEVEL, OPTIONS_
 # Load the preprocessor
 preprocessor = Preprocessor()
 
-def plot_next_year_salary(pred, age):
+def plot_next_year_salary(pred, years_of_experience):
     fig, ax = plt.subplots()
     fig.patch.set_alpha(0)
     ax.set_facecolor('none')
-    x_values = [age + i for i in range(len(pred))]
+    x_values = [years_of_experience + i for i in range(len(pred))]
     ax.plot(x_values, pred, color='#00ffa6', label='Inferencia', linestyle='-', marker='o')
-    ax.set_xlabel('Edad')
+    ax.set_xlabel('Años de experiencia')
     ax.set_ylabel('Salario')
     ax.set_title('Salario en los próximos años.')
     # Cambiar el color de los textos a blanco
@@ -111,7 +111,7 @@ def app():
         )
 
         # plot y_pred
-        plot_next_year_salary(y_pred_rf, age)
+        plot_next_year_salary(y_pred_rf, years_of_experience)
     
 
     if nn_button:
@@ -151,4 +151,4 @@ def app():
         )
 
         # plot y_pred
-        plot_next_year_salary(y_pred_nn, age)
+        plot_next_year_salary(y_pred_nn, years_of_experience)
