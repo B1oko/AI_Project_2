@@ -7,7 +7,7 @@ import seaborn as sns
 
 @st.cache_data
 def load_data():
-	data = pd.read_csv('../Data/salary_data_pau_cleaned_small_modified.csv')
+	data = pd.read_csv('Notebooks/data/salary_data_pau_cleaned_small_modified.csv')
 	job_title_counts = data['Job Title'].value_counts()
 	job_titles_to_keep = job_title_counts[job_title_counts >= 40].index
 	data = data[data['Job Title'].isin(job_titles_to_keep)]
